@@ -12,15 +12,8 @@ import java.io.Serializable;
  * @author Diego
  */
 public class Sala implements Serializable{
+    private static final long serialVersionUID = 1L;
+    
     public long idSala;
     public String nombreSala;
-    
-    public String getNombre()
-    {
-        return this.nombreSala;
-    }
-
-    public long getID() {
-        return this.idSala;
-    }
 }

@@ -16,5 +16,6 @@ public enum Actions
     REGISTRO,
     NEWLOBBY,
     GETLOBBYS,
-    GETLOBBYSstream, GETLOBBYSstreamStop
+    GETLOBBYSstream,
+    GETLOBBYSstreamStop
 }

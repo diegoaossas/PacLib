@@ -12,6 +12,8 @@ import java.io.Serializable;
  * @author Diego
  */
 public class Usuario implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
     public int ID;
     public String Usuario;
     public int pJugadas;
