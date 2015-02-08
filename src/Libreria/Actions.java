@@ -15,7 +15,10 @@ public enum Actions
     LOGIN,
     REGISTRO,
     NEWLOBBY,
-    GETLOBBYS,
     GETLOBBYSstream,
-    GETLOBBYSstreamStop
+    GETLOBBYSstreamStop,
+    GETSALAstream,
+    GETSALAstreamStop,
+    JoinSALA,
+    LeaveSALA
 }
