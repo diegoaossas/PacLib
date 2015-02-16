@@ -15,7 +15,8 @@ public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
     
     public int ID;
-    public String Usuario;
+    public String Cuenta;
+    public String Nombre;
     public int pJugadas;
     public int pGanadas;
     public int pPerdidas;
