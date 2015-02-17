@@ -17,7 +17,8 @@ public class Usuario implements Serializable {
     public int ID;
     public String Cuenta;
     public String Nombre;
-    public int pJugadas;
-    public int pGanadas;
-    public int pPerdidas;
+    public String Clave;
+    public int pJugadas = 0;
+    public int pGanadas = 0;
+    public int pPerdidas = 0;
 }

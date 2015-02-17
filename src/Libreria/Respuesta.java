@@ -14,5 +14,7 @@ public enum Respuesta
 {
     ERRORCONECTANDO,
     LOGGED,
-    NOLOGGED
+    NOLOGGED,
+    REGISTRADO,
+    NOREGISTRADO
 }
