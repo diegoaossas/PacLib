@@ -11,5 +11,5 @@ public enum Actions
     GETSALAstreamStop,
     JoinSALA,
     LeaveSALA,
-    DESCONECTAR
+    DESCONECTAR, GETMAPA
 }
