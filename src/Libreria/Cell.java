@@ -2,10 +2,11 @@ package Libreria;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.io.Serializable;
 
-public class Cell {
+public class Cell implements Serializable{
 	public final static int CELL = 18;
-	protected char type;
+	public char type;
 	protected int x, y;
 
 	/*
