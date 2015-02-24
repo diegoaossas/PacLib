@@ -10,6 +10,7 @@ public class Usuario implements Serializable
     public String Cuenta;
     public String Nombre;
     public String Clave;
+    public Pacman paco;
     public int pJugadas = 0;
     public int pGanadas = 0;
     public int pPerdidas = 0;
