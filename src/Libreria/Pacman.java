@@ -1,12 +1,13 @@
 package Libreria;
 
 import java.io.Serializable;
+import javafx.scene.paint.Color;
 
 public class Pacman implements Serializable
 {
-
     public int pacmanRow = 1;
     public int pacmanCol = 1;
+    public int color = 0;
     public int puntos = 0;
     public boolean powerUP = false;
     public int pos = 0;
