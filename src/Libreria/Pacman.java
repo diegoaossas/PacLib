@@ -1,6 +1,8 @@
 package Libreria;
 
+import java.awt.Color;
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Pacman implements Serializable, Cloneable
 {
@@ -8,13 +10,18 @@ public class Pacman implements Serializable, Cloneable
     
     public int pacmanRow = 1;
     public int pacmanCol = 1;
-    public int color = 0;
+    public Color color = Color.YELLOW;
     public int puntos = 0;
     public boolean powerUP = false;
     public int pos = 0;
     public int livesLeft;
     public boolean ubicados = false;
 
+    public Pacman(int lives)
+    {
+        livesLeft = lives;
+    }
+    
     @Override
     public Pacman clone() throws CloneNotSupportedException
     {
@@ -34,15 +41,15 @@ public class Pacman implements Serializable, Cloneable
     @Override
     public int hashCode()
     {
-        int hash = 5;
-        hash = 37 * hash + this.pacmanRow;
-        hash = 37 * hash + this.pacmanCol;
-        hash = 37 * hash + this.color;
-        hash = 37 * hash + this.puntos;
-        hash = 37 * hash + (this.powerUP ? 1 : 0);
-        hash = 37 * hash + this.pos;
-        hash = 37 * hash + this.livesLeft;
-        hash = 37 * hash + (this.ubicados ? 1 : 0);
+        int hash = 7;
+        hash = 67 * hash + this.pacmanRow;
+        hash = 67 * hash + this.pacmanCol;
+        hash = 67 * hash + Objects.hashCode(this.color);
+        hash = 67 * hash + this.puntos;
+        hash = 67 * hash + (this.powerUP ? 1 : 0);
+        hash = 67 * hash + this.pos;
+        hash = 67 * hash + this.livesLeft;
+        hash = 67 * hash + (this.ubicados ? 1 : 0);
         return hash;
     }
 
@@ -66,7 +73,7 @@ public class Pacman implements Serializable, Cloneable
         {
             return false;
         }
-        if (this.color != other.color)
+        if (!Objects.equals(this.color, other.color))
         {
             return false;
         }
@@ -90,13 +97,7 @@ public class Pacman implements Serializable, Cloneable
         {
             return false;
         }
-
         return true;
-    }
-
-    public Pacman(int lives)
-    {
-        livesLeft = lives;
     }
 
     public int getPosX(int pos)
