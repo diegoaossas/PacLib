@@ -11,15 +11,23 @@ public class Pacman implements Serializable, Cloneable
     public int pacmanRow = 1;
     public int pacmanCol = 1;
     public Color color = Color.YELLOW;
-    public int puntos = 0;
     public boolean powerUP = false;
     public int pos = 0;
     public int livesLeft;
     public boolean ubicados = false;
+    public int puntos;
 
     public Pacman(int lives)
     {
         livesLeft = lives;
+    }
+    
+    public boolean chocan(Pacman otro)
+    {
+        if(this.pacmanCol != otro.pacmanCol || this.pacmanRow != otro.pacmanRow)
+            return false;
+        
+        return true;
     }
     
     @Override
@@ -32,7 +40,6 @@ public class Pacman implements Serializable, Cloneable
         paco.pacmanRow = this.pacmanRow;
         paco.pos = this.pos;
         paco.powerUP = this.powerUP;
-        paco.puntos = this.puntos;
         paco.ubicados = this.ubicados;
         
         return paco;
@@ -45,7 +52,6 @@ public class Pacman implements Serializable, Cloneable
         hash = 67 * hash + this.pacmanRow;
         hash = 67 * hash + this.pacmanCol;
         hash = 67 * hash + Objects.hashCode(this.color);
-        hash = 67 * hash + this.puntos;
         hash = 67 * hash + (this.powerUP ? 1 : 0);
         hash = 67 * hash + this.pos;
         hash = 67 * hash + this.livesLeft;
@@ -74,10 +80,6 @@ public class Pacman implements Serializable, Cloneable
             return false;
         }
         if (!Objects.equals(this.color, other.color))
-        {
-            return false;
-        }
-        if (this.puntos != other.puntos)
         {
             return false;
         }
@@ -141,7 +143,7 @@ public class Pacman implements Serializable, Cloneable
     @Override
     public String toString()
     {
-        return "Pacman{" + "pacmanRow=" + pacmanRow + ", pacmanCol=" + pacmanCol + ", color=" + color + ", puntos=" + puntos + ", powerUP=" + powerUP + ", pos=" + pos + ", livesLeft=" + livesLeft + ", ubicados=" + ubicados + '}';
+        return "Pacman{" + "pacmanRow=" + pacmanRow + ", pacmanCol=" + pacmanCol + ", color=" + color + ", powerUP=" + powerUP + ", pos=" + pos + ", livesLeft=" + livesLeft + ", ubicados=" + ubicados + '}';
     }
     
     

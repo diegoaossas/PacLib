@@ -12,6 +12,7 @@ public class Usuario implements Serializable
     public String Nombre;
     public String Clave;
     public Pacman paco;
+    public int puntosPaco;
     public int pJugadas;
     public int pGanadas;
     public int pPerdidas;
@@ -23,6 +24,7 @@ public class Usuario implements Serializable
         Nombre = "";
         Clave = "";
         paco = new Pacman(3);
+        puntosPaco = 0;
         pJugadas = 0;
         pGanadas = 0;
         pPerdidas = 0;
@@ -82,6 +84,7 @@ public class Usuario implements Serializable
         usu.pJugadas = this.pJugadas;
         usu.pPerdidas = this.pPerdidas;
         usu.paco = this.paco.clone();
+        usu.puntosPaco = this.puntosPaco;
 
         return usu;
     }

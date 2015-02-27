@@ -6,5 +6,5 @@ public enum Respuesta
     LOGGED,
     NOLOGGED,
     REGISTRADO,
-    NOREGISTRADO, OK, PLAY
+    NOREGISTRADO, OK, PLAY, PLAYSONIDO
 }
