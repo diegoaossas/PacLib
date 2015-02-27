@@ -16,7 +16,11 @@ public class Pacman implements Serializable, Cloneable
     public int livesLeft;
     public boolean ubicados = false;
     public int puntos;
+    public Direccion direccion = Direccion.Derecha;
 
+    public enum Direccion
+    { Arriba, Abajo, Izquierda, Derecha }
+    
     public Pacman(int lives)
     {
         livesLeft = lives;
@@ -133,7 +137,12 @@ public class Pacman implements Serializable, Cloneable
     public void setPos()
     {
         if (!ubicados)
-        {
+        {    
+            if(pos == 0 || pos == 3)
+                direccion = Direccion.Derecha;
+            else
+                direccion = Direccion.Izquierda;
+        
             pacmanCol = getPosX(pos);
             pacmanRow = getPosY(pos);
             ubicados = true;
