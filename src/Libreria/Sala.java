@@ -23,6 +23,8 @@ public class Sala implements Serializable, Cloneable
     public Cell[][] cellsMapa;
     public int tileHeight;
     public int tileWidth;
+    
+    public Fantasma fanti;
 
     public Sala()
     {

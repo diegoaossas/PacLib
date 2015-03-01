@@ -34,6 +34,13 @@ public class Pacman implements Serializable, Cloneable
         return true;
     }
     
+     public boolean chocan(Fantasma fant)
+    {
+        if(this.pacmanCol != fant.pacmanCol || this.pacmanRow != fant.pacmanRow)
+            return false;
+        
+        return true;
+    }  
     @Override
     public Pacman clone() throws CloneNotSupportedException
     {
@@ -149,11 +156,38 @@ public class Pacman implements Serializable, Cloneable
         }
     }
 
-    @Override
-    public String toString()
-    {
-        return "Pacman{" + "pacmanRow=" + pacmanRow + ", pacmanCol=" + pacmanCol + ", color=" + color + ", powerUP=" + powerUP + ", pos=" + pos + ", livesLeft=" + livesLeft + ", ubicados=" + ubicados + '}';
+    /*
+     * Move horizontally
+     *
+     */
+    public boolean moveRow(int x, Cell[][] cells) {
+        if (isCellNavigable(pacmanCol, pacmanRow + x, cells)) {
+            pacmanRow = pacmanRow + x;
+            return true;
+        }
+        return false;
+    }
+
+    /*
+     * Move vertically
+     *
+     */
+    public boolean moveCol(int y, Cell[][] cells) {
+        if (isCellNavigable(pacmanCol + y, pacmanRow, cells)) {
+            pacmanCol = pacmanCol + y;
+            return true;
+        }
+        return false;
     }
     
     
+    /*
+     * Check whether a cell is navigable
+     *
+     */
+    public boolean isCellNavigable(int column, int row, Cell[][] cells) {
+        return ((cells[row][column].getType() == 'm') || (cells[row][column].getType() == 'n')
+                || (cells[row][column].getType() == 'v') || (cells[row][column].getType() == 'y')
+                || (cells[row][column].getType() == 'z'));
+    }
 }
