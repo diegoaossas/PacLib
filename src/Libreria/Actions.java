@@ -11,5 +11,11 @@ public enum Actions
     GETSALAstreamStop,
     JoinSALA,
     LeaveSALA,
-    DESCONECTAR, GETMAPA, GETPACMANS, PacManSTREAM, ActPACMAN, GETJUEGOstream, PLAYALL
+    DESCONECTAR,
+    GETMAPA,
+    GETPACMANS,
+    PacManSTREAM,
+    ActPACMAN,
+    GETJUEGOstream,
+    PLAYALL
 }

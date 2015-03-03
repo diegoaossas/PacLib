@@ -9,7 +9,7 @@ import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.io.Serializable;
 
-public class Cell implements Serializable
+public class Cell implements Serializable, Cloneable
 {
     private static final long serialVersionUID = 1L;
 
@@ -17,9 +17,6 @@ public class Cell implements Serializable
     public char type;
     protected int x, y;
 
-    /*
-     * Constructor
-     */
     public Cell(int x, int y, char type)
     {
         this.type = type;
@@ -42,107 +39,83 @@ public class Cell implements Serializable
     {
         return y;
     }
-    /*
-     * Gets the type
-     */
 
     public char getType()
     {
         return type;
     }
 
-    /*
-     * Draw the cell
-     */
     public void drawBackground(Graphics g)
     {
-        int xBase = 0;
-        int yBase = 0;
+        int xBase;
+        int yBase;
 
         switch (type)
         {
-            /*
-             * case 'e' : // corral exit g.setColor(Color.WHITE); g.fillRect(x *
-             * CELL, y * CELL + CELL / 2 - 10, CELL, 3);
-             * 
-             * break;
-             */
-
-            case 'k': // horizontal line
+            
+            case 'q':
+                g.setColor(Color.WHITE);
+                g.fillRect(x * CELL, y * CELL + CELL / 2 - 10, CELL, 3);
+                break;
+   
+            case 'k':
             case 'e':
                 g.setColor(Color.BLUE);
                 g.fillRect(x * CELL, y * CELL + CELL / 2 - 1, CELL, 3);
-
                 break;
 
-            case 'l': // vertical line
+            case 'l':
             case 'f':
                 g.setColor(Color.BLUE);
                 g.fillRect(x * CELL + CELL / 2 - 1, y * CELL, 3, CELL);
-
                 break;
 
-            case 'b': // northeast corner
+            case 'b':
             case 'h':
-            case 'o':
                 xBase = x * CELL - CELL / 2;
                 yBase = y * CELL + CELL / 2;
                 drawCorner(g, xBase, yBase);
-
                 break;
 
-            case 'a': // northwest corner
+            case 'a':
             case 'g':
             case 'p':
                 xBase = x * CELL + CELL / 2;
                 yBase = y * CELL + CELL / 2;
                 drawCorner(g, xBase, yBase);
-
                 break;
 
-            case 'd': // southeast corner
+            case 'd':
             case 'j':
+            case 'o':
                 xBase = x * CELL - CELL / 2;
                 yBase = y * CELL - CELL / 2;
                 drawCorner(g, xBase, yBase);
-
                 break;
 
-            case 'c': // southwest corner
+            case 'c':
             case 'i':
                 xBase = x * CELL + CELL / 2;
                 yBase = y * CELL - CELL / 2;
                 drawCorner(g, xBase, yBase);
-
                 break;
 
-            case 'v':
-                break; // empty navigable cell
-
-            case 'm': // navigable cell with pill
+            case 'm':
                 g.setColor(Color.WHITE);
                 g.fillRect(x * CELL + CELL / 2 - 1, y * CELL + CELL / 2 - 1, 3, 3);
-
                 break;
 
-            case 'n': // navigable cell with power pellet
+            case 'n':
                 g.setColor(Color.PINK);
                 g.fillOval(x * CELL + CELL / 2 - 7, y * CELL + CELL / 2 - 7, 13, 13);
-
                 break;
-            /*
-             * case 'x' : // empty non-navigable cell case 'g' : // the Corral
-             */
+
             default:
                 break;
         }
     }
 
-
-    /*
-     * Draw 3px rounded corner
-     */
-    public void drawCorner(Graphics g, int xBase, int yBase)
+    private void drawCorner(Graphics g, int xBase, int yBase)
     {
         Graphics2D g2 = (Graphics2D) g;
         Rectangle oldClip = g.getClipBounds();
@@ -157,10 +130,15 @@ public class Cell implements Serializable
         g2.setClip(oldClip);
     }
 
+    /**
+     *
+     * @return
+     * @throws CloneNotSupportedException
+     */
     @Override
-    protected Cell clone() throws CloneNotSupportedException
+    public Cell clone() throws CloneNotSupportedException
     {
-        Cell cell = new Cell(0, 0, 'a');
+        Cell cell = (Cell) super.clone();
         cell.type = this.type;
         cell.x = this.x;
         cell.y = this.y;
@@ -168,9 +146,20 @@ public class Cell implements Serializable
         return cell;
     }
 
+    /**
+     *
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o)
-    {
+    {        
+        if (o == null)
+            return false;
+        
+        if(getClass() != o.getClass())
+            return false;
+        
         Cell other = (Cell) o;
         
         if(other.type != this.type)
@@ -181,6 +170,16 @@ public class Cell implements Serializable
             return false;
         
         return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 5;
+        hash = 53 * hash + this.type;
+        hash = 53 * hash + this.x;
+        hash = 53 * hash + this.y;
+        return hash;
     }
 
 }

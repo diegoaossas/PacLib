@@ -11,18 +11,17 @@ import java.util.Scanner;
 
 public class Sala implements Serializable, Cloneable
 {
-
     private static final long serialVersionUID = 1L;
 
-    public long idSala;
-    public String nombreSala;
-    public String capitan;
+    public long idSala = 0;
+    public String nombreSala = "";
+    public String capitan = "";
     public boolean empezado = false;
     public int maxjugadores = 4;
-    public Jugadores jugadores;
-    public Cell[][] cellsMapa;
-    public int tileHeight;
-    public int tileWidth;
+    public Jugadores jugadores = new Jugadores();
+    public Cell[][] cellsMapa = null;
+    public int tileHeight = 0;
+    public int tileWidth = 0;
     
     public Fantasma fanti;
 
@@ -35,50 +34,40 @@ public class Sala implements Serializable, Cloneable
     public boolean equals(Object obj)
     {
         if (obj == null)
-        {
             return false;
-        }
+        
         if (getClass() != obj.getClass())
-        {
             return false;
-        }
+        
         final Sala other = (Sala) obj;
+        
         if (this.idSala != other.idSala)
-        {
             return false;
-        }
+        
         if (!Objects.equals(this.nombreSala, other.nombreSala))
-        {
             return false;
-        }
+        
         if (!Objects.equals(this.capitan, other.capitan))
-        {
             return false;
-        }
+        
         if (this.empezado != other.empezado)
-        {
             return false;
-        }
+        
         if (this.maxjugadores != other.maxjugadores)
-        {
             return false;
-        }
+        
         if (!this.jugadores.equals(other.jugadores))
-        {
             return false;
-        }
+        
         if (!Arrays.deepEquals(this.cellsMapa, other.cellsMapa))
-        {
             return false;
-        }
+        
         if (this.tileHeight != other.tileHeight)
-        {
             return false;
-        }
+        
         if (this.tileWidth != other.tileWidth)
-        {
             return false;
-        }
+        
         return true;
     }
 
@@ -86,6 +75,7 @@ public class Sala implements Serializable, Cloneable
     public int hashCode()
     {
         int hash = 5;
+        
         hash = 31 * hash + (int) (this.idSala ^ (this.idSala >>> 32));
         hash = 31 * hash + Objects.hashCode(this.nombreSala);
         hash = 31 * hash + Objects.hashCode(this.capitan);
@@ -113,18 +103,13 @@ public class Sala implements Serializable, Cloneable
         return jugadores.remove(usuario);
     }
 
-    /**
-     * Reads from the map file and create the two dimensional array
-     */
     private void cargaMapa()
     {
         String map = "src/pacmanserver/mapa.txt";
 
-        // Scanner object to read from map file
         Scanner fileReader;
         ArrayList<String> lineList = new ArrayList<String>();
 
-        // Attempt to load the maze map file
         try
         {
             fileReader = new Scanner(new File(map));
@@ -136,16 +121,11 @@ public class Sala implements Serializable, Cloneable
                 try
                 {
                     line = fileReader.nextLine();
-                } catch (Exception eof)
-                {
-
-                    // throw new A5FatalException("Could not read resource");
                 }
+                catch (Exception eof){}
 
                 if (line == null)
-                {
                     break;
-                }
 
                 lineList.add(line);
             }
@@ -154,7 +134,6 @@ public class Sala implements Serializable, Cloneable
             tileWidth = lineList.get(0).length();
             int anchoTablero = tileWidth * CELL;
 
-            // Create the cells
             cellsMapa = new Cell[tileHeight][tileWidth];
 
             for (int row = 0; row < tileHeight; row++)
@@ -168,8 +147,8 @@ public class Sala implements Serializable, Cloneable
                     cellsMapa[row][column] = new Cell(column, row, type);
                 }
             }
-
-        } catch (FileNotFoundException e)
+        }
+        catch (FileNotFoundException e)
         {
             System.out.println("Archivo no encontrado");
         }
@@ -178,10 +157,11 @@ public class Sala implements Serializable, Cloneable
     @Override
     public Sala clone() throws CloneNotSupportedException
     {
-        Sala sala = new Sala();
-        sala.capitan = this.capitan;
+        Sala sala = (Sala) super.clone();
         
+        sala.capitan = this.capitan;
         sala.cellsMapa = new Cell[tileHeight][tileWidth];
+        
         for(int i = 0; i<tileHeight; i++)
         {
             for(int j = 0; j < tileWidth; j++)
@@ -192,9 +172,7 @@ public class Sala implements Serializable, Cloneable
         
         sala.empezado = this.empezado;
         sala.idSala = this.idSala;
-        
         sala.jugadores = this.jugadores.clone();
-        
         sala.maxjugadores = this.maxjugadores;
         sala.nombreSala = this.nombreSala;
         sala.tileHeight = this.tileHeight;
