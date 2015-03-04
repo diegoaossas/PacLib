@@ -23,7 +23,7 @@ public class Sala implements Serializable, Cloneable
     public int tileHeight = 0;
     public int tileWidth = 0;
     
-    public Fantasma fanti;
+    public Fantasma fanti = new Fantasma();
 
     public Sala()
     {

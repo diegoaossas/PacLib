@@ -17,6 +17,10 @@ public class Pacman implements Serializable, Cloneable
     public boolean ubicados = false;
     public int puntos = 0;
     public Direccion direccion = Direccion.Derecha;
+    
+    public boolean moviendose = false;
+    public int X = 0;
+    public int Y = 0;
 
     public enum Direccion
     {
@@ -36,10 +40,11 @@ public class Pacman implements Serializable, Cloneable
         return (this.pacmanCol != otro.pacmanCol || this.pacmanRow != otro.pacmanRow);
     }
     
-     public boolean chocan(Fantasma fant)
+    public boolean chocan(Fantasma fant)
     {
-        return (this.pacmanCol != fant.pacmanCol || this.pacmanRow != fant.pacmanRow);
-    }  
+        return (this.pacmanCol != fant.fantasmaCol || this.pacmanRow != fant.fantasmaRow);
+    }
+     
     @Override
     public Pacman clone() throws CloneNotSupportedException
     {
@@ -141,6 +146,35 @@ public class Pacman implements Serializable, Cloneable
         }
     }
 
+    public boolean posToCell(int X, int Y, Cell[][] cells)
+    {
+        int Row = ((X + (X/2)) / 15);
+        int Col = ((Y + (Y/2)) / 15);
+                        
+        if (isCellNavigable(Col, Row, cells))
+        {
+            this.X += X;
+            this.Y = Y;
+            
+            pacmanCol = Col;
+            pacmanRow = Row;
+            
+            return true;
+        }
+        
+        return false;
+    }
+    
+    public boolean moverX(int X, Cell[][] cells)
+    {
+        return posToCell(X , Y, cells);
+    }
+    
+    public boolean moverY(int Y, Cell[][] cells)
+    {
+        return posToCell(X , Y, cells);
+    }
+    
     public boolean moveRow(int x, Cell[][] cells)
     {
         if (isCellNavigable(pacmanCol, pacmanRow + x, cells))
@@ -153,7 +187,7 @@ public class Pacman implements Serializable, Cloneable
     }
 
     public boolean moveCol(int y, Cell[][] cells)
-    {
+    {        
         if (isCellNavigable(pacmanCol + y, pacmanRow, cells))
         {
             pacmanCol += y;
@@ -168,5 +202,27 @@ public class Pacman implements Serializable, Cloneable
         char type = cells[row][column].getType();
         
         return (type == 'm' || type == 'n' || type == 'v' || type == 'y' || type == 'z');
+    }
+    
+    public void moverPacman()
+    {
+        if(!moviendose)
+            return;
+        
+        switch(direccion)
+        {
+            case Arriba:
+                Y--;
+                break;
+            case Abajo:
+                Y++;
+                break;
+            case Izquierda:
+                X--;
+                break;
+            case Derecha:
+                X++;
+                break;
+        }
     }
 }
