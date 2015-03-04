@@ -37,12 +37,12 @@ public class Pacman implements Serializable, Cloneable
     
     public boolean chocan(Pacman otro)
     {
-        return (this.pacmanCol != otro.pacmanCol || this.pacmanRow != otro.pacmanRow);
+        return (this.pacmanCol == otro.pacmanCol && this.pacmanRow == otro.pacmanRow);
     }
     
     public boolean chocan(Fantasma fant)
     {
-        return (this.pacmanCol != fant.fantasmaCol || this.pacmanRow != fant.fantasmaRow);
+        return (this.pacmanCol == fant.fantasmaCol && this.pacmanRow == fant.fantasmaRow);
     }
      
     @Override
@@ -144,35 +144,6 @@ public class Pacman implements Serializable, Cloneable
             pacmanRow = getPosY(pos);
             ubicados = true;
         }
-    }
-
-    public boolean posToCell(int X, int Y, Cell[][] cells)
-    {
-        int Row = ((X + (X/2)) / 15);
-        int Col = ((Y + (Y/2)) / 15);
-                        
-        if (isCellNavigable(Col, Row, cells))
-        {
-            this.X += X;
-            this.Y = Y;
-            
-            pacmanCol = Col;
-            pacmanRow = Row;
-            
-            return true;
-        }
-        
-        return false;
-    }
-    
-    public boolean moverX(int X, Cell[][] cells)
-    {
-        return posToCell(X , Y, cells);
-    }
-    
-    public boolean moverY(int Y, Cell[][] cells)
-    {
-        return posToCell(X , Y, cells);
     }
     
     public boolean moveRow(int x, Cell[][] cells)
