@@ -1,6 +1,7 @@
 package Libreria;
 
 import static Libreria.Cell.CELL;
+import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
@@ -23,51 +24,87 @@ public class Sala implements Serializable, Cloneable
     public int tileHeight = 0;
     public int tileWidth = 0;
     
-    public Fantasma fanti = new Fantasma();
+    public Fantasma fant1 = new Fantasma();
+    public Fantasma fant2 = new Fantasma();
+    public Fantasma fant3 = new Fantasma();
+    public Fantasma fant4 = new Fantasma();
 
     public Sala()
     {
+        fant2.color = Color.BLUE;
+        fant2.fantasmaCol = fant1.fantasmaCol + 1;
+        fant3.color = Color.PINK;
+        fant3.fantasmaCol = fant2.fantasmaCol + 1;
+        fant4.color = Color.GREEN;
+        fant4.fantasmaCol = fant3.fantasmaCol + 1;
+        
         cargaMapa();
     }
-    
+  
     @Override
     public boolean equals(Object obj)
     {
         if (obj == null)
+        {
             return false;
-        
+        }
         if (getClass() != obj.getClass())
+        {
             return false;
-        
+        }
         final Sala other = (Sala) obj;
-        
         if (this.idSala != other.idSala)
+        {
             return false;
-        
+        }
         if (!Objects.equals(this.nombreSala, other.nombreSala))
+        {
             return false;
-        
+        }
         if (!Objects.equals(this.capitan, other.capitan))
+        {
             return false;
-        
+        }
         if (this.empezado != other.empezado)
+        {
             return false;
-        
+        }
         if (this.maxjugadores != other.maxjugadores)
+        {
             return false;
-        
-        if (!this.jugadores.equals(other.jugadores))
+        }
+        if (!Objects.equals(this.jugadores, other.jugadores))
+        {
             return false;
-        
+        }
         if (!Arrays.deepEquals(this.cellsMapa, other.cellsMapa))
+        {
             return false;
-        
+        }
         if (this.tileHeight != other.tileHeight)
+        {
             return false;
-        
+        }
         if (this.tileWidth != other.tileWidth)
+        {
             return false;
-        
+        }
+        if (!Objects.equals(this.fant1, other.fant1))
+        {
+            return false;
+        }
+        if (!Objects.equals(this.fant2, other.fant2))
+        {
+            return false;
+        }
+        if (!Objects.equals(this.fant3, other.fant3))
+        {
+            return false;
+        }
+        if (!Objects.equals(this.fant4, other.fant4))
+        {
+            return false;
+        }
         return true;
     }
 
@@ -75,17 +112,19 @@ public class Sala implements Serializable, Cloneable
     public int hashCode()
     {
         int hash = 5;
-        
-        hash = 31 * hash + (int) (this.idSala ^ (this.idSala >>> 32));
-        hash = 31 * hash + Objects.hashCode(this.nombreSala);
-        hash = 31 * hash + Objects.hashCode(this.capitan);
-        hash = 31 * hash + (this.empezado ? 1 : 0);
-        hash = 31 * hash + this.maxjugadores;
-        hash = 31 * hash + this.jugadores.hashCode();
-        hash = 31 * hash + Arrays.deepHashCode(this.cellsMapa);
-        hash = 31 * hash + this.tileHeight;
-        hash = 31 * hash + this.tileWidth;
-        
+        hash = 83 * hash + (int) (this.idSala ^ (this.idSala >>> 32));
+        hash = 83 * hash + Objects.hashCode(this.nombreSala);
+        hash = 83 * hash + Objects.hashCode(this.capitan);
+        hash = 83 * hash + (this.empezado ? 1 : 0);
+        hash = 83 * hash + this.maxjugadores;
+        hash = 83 * hash + Objects.hashCode(this.jugadores);
+        hash = 83 * hash + Arrays.deepHashCode(this.cellsMapa);
+        hash = 83 * hash + this.tileHeight;
+        hash = 83 * hash + this.tileWidth;
+        hash = 83 * hash + Objects.hashCode(this.fant1);
+        hash = 83 * hash + Objects.hashCode(this.fant2);
+        hash = 83 * hash + Objects.hashCode(this.fant3);
+        hash = 83 * hash + Objects.hashCode(this.fant4);
         return hash;
     }
     
@@ -177,8 +216,17 @@ public class Sala implements Serializable, Cloneable
         sala.nombreSala = this.nombreSala;
         sala.tileHeight = this.tileHeight;
         sala.tileWidth = this.tileWidth;
+        sala.fant1 = this.fant1.clone();
+        sala.fant2 = this.fant2.clone();
+        sala.fant3 = this.fant3.clone();
+        sala.fant4 = this.fant4.clone();
         
         return sala;
+    }
+    
+    public boolean compruebaColision(Pacman pacman)
+    {
+        return pacman.chocan(fant1) || pacman.chocan(fant2) || pacman.chocan(fant3) || pacman.chocan(fant4);
     }
     
     

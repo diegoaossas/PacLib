@@ -156,7 +156,7 @@ public class Pacman implements Serializable, Cloneable
     }
 
     public boolean moveCol(int y, Cell[][] cells)
-    {        
+    {
         if (isCellNavigable(pacmanCol + y, pacmanRow, cells))
         {
             pacmanCol += y;
