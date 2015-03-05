@@ -229,5 +229,17 @@ public class Sala implements Serializable, Cloneable
         return pacman.chocan(fant1) || pacman.chocan(fant2) || pacman.chocan(fant3) || pacman.chocan(fant4);
     }
     
+    public void resetFantasma(Pacman pacman)
+    {
+        if(pacman.chocan(fant1))
+            fant1.ubicados = false;
+        else if(pacman.chocan(fant2))
+            fant2.ubicados = false;
+        else if(pacman.chocan(fant3))
+            fant3.ubicados = false;
+        else if(pacman.chocan(fant4))
+            fant4.ubicados = false;
+    }
+    
     
 }
