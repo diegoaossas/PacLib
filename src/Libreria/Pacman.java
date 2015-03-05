@@ -16,11 +16,9 @@ public class Pacman implements Serializable, Cloneable
     public int livesLeft;
     public boolean ubicados = false;
     public int puntos = 0;
-    public Direccion direccion = Direccion.Derecha;
     
+    public Direccion direccion = Direccion.Derecha;
     public boolean moviendose = false;
-    public int X = 0;
-    public int Y = 0;
 
     public enum Direccion
     {
@@ -173,27 +171,5 @@ public class Pacman implements Serializable, Cloneable
         char type = cells[row][column].getType();
         
         return (type == 'm' || type == 'n' || type == 'v' || type == 'y' || type == 'z');
-    }
-    
-    public void moverPacman()
-    {
-        if(!moviendose)
-            return;
-        
-        switch(direccion)
-        {
-            case Arriba:
-                Y--;
-                break;
-            case Abajo:
-                Y++;
-                break;
-            case Izquierda:
-                X--;
-                break;
-            case Derecha:
-                X++;
-                break;
-        }
     }
 }
