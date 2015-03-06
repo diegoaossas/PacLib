@@ -17,5 +17,6 @@ public enum Actions
     PacManSTREAM,
     ActPACMAN,
     GETJUEGOstream,
-    PLAYALL
+    PLAYALL,
+    TOP5
 }
