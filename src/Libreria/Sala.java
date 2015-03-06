@@ -230,20 +230,34 @@ public class Sala implements Serializable, Cloneable
     
     public boolean compruebaColision(Pacman pacman)
     {
-        return (pacman.chocan(fant1) || pacman.chocan(fant2) || pacman.chocan(fant3) || pacman.chocan(fant4));
+        if (pacman.chocan(fant1))
+        {
+            if(pacman.powerUP)
+                fant1.volverACasa();
+            return true;
+        }
+        
+        if (pacman.chocan(fant2))
+        {
+            if(pacman.powerUP)
+                fant2.volverACasa();
+            return true;
+        }
+        
+        if (pacman.chocan(fant3))
+        {
+            if(pacman.powerUP)
+                fant3.volverACasa();
+            return true;
+        }
+        
+        if (pacman.chocan(fant4))
+        {
+            if(pacman.powerUP)
+                fant4.volverACasa();
+            return true;
+        }
+
+        return false;
     }
-    
-    public void resetFantasma(Pacman pacman)
-    {
-        if(pacman.chocan(fant1))
-            fant1.volverACasa();
-        else if(pacman.chocan(fant2))
-            fant2.volverACasa();
-        else if(pacman.chocan(fant3))
-            fant3.volverACasa();
-        else if(pacman.chocan(fant4))
-            fant4.volverACasa();
-    }
-    
-    
 }

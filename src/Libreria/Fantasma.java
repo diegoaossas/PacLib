@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Fantasma implements Serializable, Cloneable
 {    
@@ -82,10 +80,11 @@ public class Fantasma implements Serializable, Cloneable
         Derecha
     }
       
-    public void llevarACasa()
+    private void llevarACasa()
     {
         fantasmaCol = 11;
         fantasmaRow = 13;
+        aCasa = false;
     }    
     
     public void volverACasa()
@@ -95,15 +94,7 @@ public class Fantasma implements Serializable, Cloneable
     
     public boolean isCellNavigable(int column, int row, Cell[][] cells)
     {
-        if(aCasa)
-        {
-            llevarACasa();
-            aCasa = false;
-            return true;
-        }
-        
         char type = cells[row][column].getType();
-        
         return (type == 'm' || type == 'n' || type == 'v' || type == 'y' || type == 'z');
     }
     
@@ -147,13 +138,6 @@ public class Fantasma implements Serializable, Cloneable
     {
         Random rand = new Random();
         boolean decidio = false;
-        
-        if(aCasa)
-        {
-            llevarACasa();
-            aCasa = false;
-            return;
-        }
         
         if(direccion == Direccion.Arriba)
         {
@@ -235,13 +219,6 @@ public class Fantasma implements Serializable, Cloneable
     
     public void caminoUnico(Cell[][] cells)
     {
-        if(aCasa)
-        {
-            llevarACasa();
-            aCasa = false;
-            return;
-        }
-        
         if (caminoDerecha(cells))
         {
             fantasmaCol--;
@@ -283,6 +260,9 @@ public class Fantasma implements Serializable, Cloneable
                         intMovimiento = false;
                         break;
                     }
+                    
+                    if(aCasa)
+                        llevarACasa();
                     
                     try
                     {
