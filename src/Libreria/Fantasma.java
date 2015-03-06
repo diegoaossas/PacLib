@@ -14,9 +14,8 @@ public class Fantasma implements Serializable, Cloneable
     public int fantasmaRow = 13;
     public int fantasmaCol = 11;
     public Color color = Color.RED;
-    public boolean comible = false;
-    public int pos = 0;
     public Direccion direccion = Direccion.Derecha;
+    private boolean aCasa = false;
 
     public transient Thread movimiento;
     public boolean intMovimiento = false;
@@ -28,8 +27,6 @@ public class Fantasma implements Serializable, Cloneable
         hash = 97 * hash + this.fantasmaRow;
         hash = 97 * hash + this.fantasmaCol;
         hash = 97 * hash + Objects.hashCode(this.color);
-        hash = 97 * hash + (this.comible ? 1 : 0);
-        hash = 97 * hash + this.pos;
         hash = 97 * hash + Objects.hashCode(this.direccion);
         return hash;
     }
@@ -58,14 +55,6 @@ public class Fantasma implements Serializable, Cloneable
         {
             return false;
         }
-        if (this.comible != other.comible)
-        {
-            return false;
-        }
-        if (this.pos != other.pos)
-        {
-            return false;
-        }
         if (this.direccion != other.direccion)
         {
             return false;
@@ -78,11 +67,9 @@ public class Fantasma implements Serializable, Cloneable
     {
         Fantasma fanti = new Fantasma();
         fanti.color = this.color;
-        fanti.comible = this.comible;
         fanti.direccion = this.direccion;
         fanti.fantasmaCol = this.fantasmaCol;
         fanti.fantasmaRow = this.fantasmaRow;
-        fanti.pos = this.pos;
         
         return fanti;
     }
@@ -95,14 +82,26 @@ public class Fantasma implements Serializable, Cloneable
         Derecha
     }
       
-    public void volverACasa()
+    public void llevarACasa()
     {
         fantasmaCol = 11;
         fantasmaRow = 13;
+    }    
+    
+    public void volverACasa()
+    {
+        aCasa = true;
     }
     
     public boolean isCellNavigable(int column, int row, Cell[][] cells)
     {
+        if(aCasa)
+        {
+            llevarACasa();
+            aCasa = false;
+            return true;
+        }
+        
         char type = cells[row][column].getType();
         
         return (type == 'm' || type == 'n' || type == 'v' || type == 'y' || type == 'z');
@@ -148,6 +147,13 @@ public class Fantasma implements Serializable, Cloneable
     {
         Random rand = new Random();
         boolean decidio = false;
+        
+        if(aCasa)
+        {
+            llevarACasa();
+            aCasa = false;
+            return;
+        }
         
         if(direccion == Direccion.Arriba)
         {
@@ -229,6 +235,13 @@ public class Fantasma implements Serializable, Cloneable
     
     public void caminoUnico(Cell[][] cells)
     {
+        if(aCasa)
+        {
+            llevarACasa();
+            aCasa = false;
+            return;
+        }
+        
         if (caminoDerecha(cells))
         {
             fantasmaCol--;

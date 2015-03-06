@@ -40,7 +40,7 @@ public class Pacman implements Serializable, Cloneable
     
     public boolean chocan(Fantasma fant)
     {
-        return (this.pacmanCol == fant.fantasmaCol && this.pacmanRow == fant.fantasmaRow);
+        return ( (this.pacmanCol == fant.fantasmaCol) && (this.pacmanRow == fant.fantasmaRow) );
     }
      
     @Override

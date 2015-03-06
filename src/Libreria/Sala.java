@@ -230,7 +230,7 @@ public class Sala implements Serializable, Cloneable
     
     public boolean compruebaColision(Pacman pacman)
     {
-        return pacman.chocan(fant1) || pacman.chocan(fant2) || pacman.chocan(fant3) || pacman.chocan(fant4);
+        return (pacman.chocan(fant1) || pacman.chocan(fant2) || pacman.chocan(fant3) || pacman.chocan(fant4));
     }
     
     public void resetFantasma(Pacman pacman)
