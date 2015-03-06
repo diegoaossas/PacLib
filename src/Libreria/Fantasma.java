@@ -16,9 +16,11 @@ public class Fantasma implements Serializable, Cloneable
     public Color color = Color.RED;
     public boolean comible = false;
     public int pos = 0;
-    public boolean ubicados = false;
     public Direccion direccion = Direccion.Derecha;
 
+    public transient Thread movimiento;
+    public boolean intMovimiento = false;
+    
     @Override
     public int hashCode()
     {
@@ -28,7 +30,6 @@ public class Fantasma implements Serializable, Cloneable
         hash = 97 * hash + Objects.hashCode(this.color);
         hash = 97 * hash + (this.comible ? 1 : 0);
         hash = 97 * hash + this.pos;
-        hash = 97 * hash + (this.ubicados ? 1 : 0);
         hash = 97 * hash + Objects.hashCode(this.direccion);
         return hash;
     }
@@ -65,10 +66,6 @@ public class Fantasma implements Serializable, Cloneable
         {
             return false;
         }
-        if (this.ubicados != other.ubicados)
-        {
-            return false;
-        }
         if (this.direccion != other.direccion)
         {
             return false;
@@ -86,7 +83,6 @@ public class Fantasma implements Serializable, Cloneable
         fanti.fantasmaCol = this.fantasmaCol;
         fanti.fantasmaRow = this.fantasmaRow;
         fanti.pos = this.pos;
-        fanti.ubicados = this.ubicados;
         
         return fanti;
     }
@@ -98,7 +94,13 @@ public class Fantasma implements Serializable, Cloneable
         Izquierda,
         Derecha
     }
-            
+      
+    public void volverACasa()
+    {
+        fantasmaCol = 11;
+        fantasmaRow = 13;
+    }
+    
     public boolean isCellNavigable(int column, int row, Cell[][] cells)
     {
         char type = cells[row][column].getType();
@@ -255,20 +257,29 @@ public class Fantasma implements Serializable, Cloneable
     
     public void opciones(Cell[][] cellsMapa)
     {
-        Thread movimiento = new Thread(new Runnable()
+        movimiento = new Thread(new Runnable()
         {
             @Override
             public void run()
             {
                 while (true)
                 {
+                    if(intMovimiento)
+                    {
+                        Thread.currentThread().interrupt();
+                        intMovimiento = false;
+                        break;
+                    }
+                    
                     try
                     {
                         Thread.sleep(300);
                     }
                     catch (InterruptedException ex)
                     {
-                        Logger.getLogger(Fantasma.class.getName()).log(Level.SEVERE, null, ex);
+                        Thread.currentThread().interrupt();
+                        intMovimiento = false;
+                        break;
                     }
                     
                     switch (direccion)
