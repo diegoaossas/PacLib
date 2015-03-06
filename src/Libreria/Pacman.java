@@ -168,7 +168,12 @@ public class Pacman implements Serializable, Cloneable
     
     public boolean isCellNavigable(int column, int row, Cell[][] cells)
     {
-        char type = cells[row][column].getType();
+        char type = 0;
+        
+        try{
+            type = cells[row][column].getType();
+        }
+        catch(NullPointerException nex){}
         
         return (type == 'm' || type == 'n' || type == 'v' || type == 'y' || type == 'z');
     }
