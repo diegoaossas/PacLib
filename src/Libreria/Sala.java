@@ -23,6 +23,7 @@ public class Sala implements Serializable, Cloneable
     public Cell[][] cellsMapa = null;
     public int tileHeight = 0;
     public int tileWidth = 0;
+    public int pelletsRestantes = 0;
     
     public Fantasma fant1 = new Fantasma();
     public Fantasma fant2 = new Fantasma();
@@ -182,7 +183,10 @@ public class Sala implements Serializable, Cloneable
                 for (int column = 0; column < tileWidth; column++)
                 {
                     char type = line.charAt(column);
-
+                    
+                    if(type == 'n' ||type == 'm')
+                        pelletsRestantes++;
+                    
                     cellsMapa[row][column] = new Cell(column, row, type);
                 }
             }

@@ -16,6 +16,7 @@ public class Usuario implements Serializable
     public int pJugadas;
     public int pGanadas;
     public int pPerdidas;
+    public int recordPuntos;
     
     public Usuario()
     {
@@ -28,17 +29,7 @@ public class Usuario implements Serializable
         pJugadas = 0;
         pGanadas = 0;
         pPerdidas = 0;
-    }
-
-    @Override
-    public int hashCode()
-    {
-        int hash = 7;
-        hash = 79 * hash + this.ID;
-        hash = 79 * hash + Objects.hashCode(this.Cuenta);
-        hash = 79 * hash + Objects.hashCode(this.Nombre);
-        hash = 79 * hash + Objects.hashCode(this.paco);
-        return hash;
+        recordPuntos = 0;
     }
 
     @Override
@@ -70,6 +61,17 @@ public class Usuario implements Serializable
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 7;
+        hash = 97 * hash + this.ID;
+        hash = 97 * hash + Objects.hashCode(this.Cuenta);
+        hash = 97 * hash + Objects.hashCode(this.Nombre);
+        hash = 97 * hash + Objects.hashCode(this.paco);
+        return hash;
     }
 
     @Override
