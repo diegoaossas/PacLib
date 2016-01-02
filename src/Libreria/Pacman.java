@@ -14,7 +14,7 @@ public class Pacman implements Serializable, Cloneable
     public boolean powerUP = false;
     public int pos = 0;
     public int livesLeft;
-    public boolean ubicados = false;
+    private boolean ubicados = false;
     public int puntos = 0;
     
     public Direccion direccion = Direccion.Derecha;
@@ -35,7 +35,7 @@ public class Pacman implements Serializable, Cloneable
     
     public boolean chocan(Pacman otro)
     {
-        return (this.pacmanCol == otro.pacmanCol && this.pacmanRow == otro.pacmanRow);
+        return ( (this.pacmanCol == otro.pacmanCol) && (this.pacmanRow == otro.pacmanRow) );
     }
     
     public boolean chocan(Fantasma fant)
@@ -170,11 +170,23 @@ public class Pacman implements Serializable, Cloneable
     {
         char type = 0;
         
-        try{
+        try
+        {
             type = cells[row][column].getType();
         }
-        catch(NullPointerException nex){}
+        catch(NullPointerException nex)
+        {
+            nex.printStackTrace();
+            return false;
+        }
         
         return (type == 'm' || type == 'n' || type == 'v' || type == 'y' || type == 'z');
+    }
+    
+    public void comido()
+    {
+        moviendose = false;
+        ubicados = false;
+        setPos();
     }
 }
